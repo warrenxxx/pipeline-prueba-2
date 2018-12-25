@@ -1,11 +1,9 @@
-FROM node:8.11.2-alpine as node
+FROM stefanscherer/node-windows
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build --prod
-
-
 
 FROM microsoft/iis
 SHELL ["powershell"]
@@ -13,7 +11,7 @@ SHELL ["powershell"]
 RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
     Install-WindowsFeature Web-Asp-Net45
 
-COPY --from=node /usr/src/app/dist/ngprueba 'c:\GuidGenerator'
+COPY --from=node /usr/src/app/dist/ngprueba c:/GuidGenerator
 
 COPY GuidGenerator GuidGenerator
 RUN Remove-WebSite -Name 'Default Web Site'
