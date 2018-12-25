@@ -11,6 +11,7 @@ SHELL ["powershell"]
 RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
     Install-WindowsFeature Web-Asp-Net45
 
+RUN ls
 COPY --from=node-windows C:/usr/src/app c:/GuidGenerator
 
 COPY GuidGenerator GuidGenerator
