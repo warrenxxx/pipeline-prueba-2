@@ -11,10 +11,10 @@ SHELL ["powershell"]
 RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
     Install-WindowsFeature Web-Asp-Net45
 
-COPY --from=node /usr/src/app/dist/ngprueba c:/GuidGenerator
+COPY --from=node-windows C:/usr/src/app c:/GuidGenerator
 
 COPY GuidGenerator GuidGenerator
-RUN Remove-WebSite -Name 'Default Web Site'
+RUN Remove-WebSgite -Name 'Default Web Site'
 RUN New-Website -Name 'guidgenerator' -Port 80 \
     -PhysicalPath 'c:\GuidGenerator' -ApplicationPool '.NET v4.5'
 EXPOSE 80
