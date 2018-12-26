@@ -12,12 +12,12 @@ RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
     Install-WindowsFeature Web-Asp-Net45
 
 
-COPY /usr/src/app/dist /app
+COPY . app
 RUN ls
 RUN cd app; ls
 
 RUN Remove-WebSgite -Name 'Default Web Site'
-RUN New-Website -Name 'guidgenerator' -Port 80 -PhysicalPath 'c:\app\ngprueba' -ApplicationPool '.NET v4.5'
+RUN New-Website -Name 'guidgenerator' -Port 80 -PhysicalPath 'c:\app\dist\ngprueba' -ApplicationPool '.NET v4.5'
 EXPOSE 80
 
 CMD ["ping", "-t", "localhost"]
