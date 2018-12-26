@@ -12,7 +12,7 @@ RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
     Install-WindowsFeature Web-Asp-Net45
 
 
-COPY ./dist ./app
+COPY dist /app
 RUN ls
 RUN cd app; ls
 
