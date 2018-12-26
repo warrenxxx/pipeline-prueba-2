@@ -1,4 +1,4 @@
-FROM stefanscherer/node-windows
+FROM stefanscherer/node-windows as builder
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
@@ -12,7 +12,7 @@ RUN Install-WindowsFeature NET-Framework-45-ASPNET ; \
     Install-WindowsFeature Web-Asp-Net45
 
 
-COPY . app
+COPY --from=builder /usr/src/app app
 RUN ls
 RUN cd app; ls
 
