@@ -7,11 +7,15 @@ trigger:
 - master
 
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: 'Ubuntu-16.04'
 
 variables:
   imageName: 'your-container-image-name:$(build.buildId)'
-
+  dockerId: emscontenedor
+  pswd: ePrwU8FguIoaVPJVhG0dee5pRdrwHCD+
 steps:
-- script: docker build -f Dockerfile -t $(imageName) .
+- script: |
+    docker build -t $(dockerId).azurecr.io/nodep1:v1 .
+    docker login -u $(dockerId) -p $(pswd) $(dockerId).azurecr.io
+    docker push $(dockerId).azurecr.io/nodep1:v1
   displayName: 'docker build'
